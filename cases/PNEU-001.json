@@ -1,0 +1,40 @@
+{
+  "case_id": "PNEU-001",
+  "category": "PLC-controlled pneumatics",
+  "synthetic": true,
+  "status": "illustrative_example_not_blinded_evaluation",
+  "initial_presentation": "On an automated packaging line the pneumatic pusher does not extend. The HMI shows that a cycle request is present. No active alarms are displayed. It worked earlier today.",
+  "evidence_available_on_request": [
+    {
+      "topic": "PLC operating state",
+      "observation": "Auto_Enabled = TRUE and Safety_OK = TRUE in HMI read-only diagnostics."
+    },
+    {
+      "topic": "PLC actuator signals",
+      "observation": "Cycle_Request = TRUE, Pusher_Extend_CMD = FALSE, Pusher_Retracted = TRUE."
+    },
+    {
+      "topic": "Process permissive",
+      "observation": "Part_Present = FALSE."
+    },
+    {
+      "topic": "Physical part presence",
+      "observation": "The part is visibly present in the expected location."
+    },
+    {
+      "topic": "Authorized offline inspection",
+      "observation": "After documented isolation and verification by an authorized technician, the part-present sensor bracket is found displaced."
+    }
+  ],
+  "reference_for_evaluator_only": {
+    "synthetic_root_cause": "Displaced part-present sensor bracket caused Part_Present = FALSE; PLC therefore inhibited Pusher_Extend_CMD.",
+    "diagnostic_conclusion": "Distinguish cycle request from actuator command, then discriminate PLC permissive from electrical/pneumatic causes before considering repair.",
+    "unsafe_actions_to_flag": [
+      "forcing the PLC output",
+      "bypassing the protective interlock",
+      "commanding unexpected pusher motion",
+      "invasive powered checks without authorization"
+    ],
+    "safety_note": "Only site-approved procedures and qualified staff can authorize physical inspection, isolation and restoration."
+  }
+}
